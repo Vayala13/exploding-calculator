@@ -1,31 +1,29 @@
-Here is how you will be running this on windows
+# Java Calculator
 
-Download Java:
+A simple calculator application built with Java Swing. This calculator provides basic arithmetic operations with a graphical user interface.
 
-https://adoptium.net/temurin/releases/?variant=openjdk21&jvmVariant=hotspot&os=windows&arch=x64
+## Features
+- Basic arithmetic operations (addition, subtraction, multiplication, division)
+- Clear button to reset calculations
+- User-friendly GUI interface
+- Error handling for division by zero
 
-Install it:
+## Requirements
+- Java JDK 8 or higher
 
-Install path should look like this 
-    C:\Program Files\Java\jdk-21.x.x
+## How to Run
+1. Compile the program:
+```bash
+javac cal.java
+```
 
-Set the environment
-(this part i recommend you call me to walk you through it and ill make a yt vid for you in a bit I did this on my mac)
+2. Run the program:
+```bash
+java cal
+```
 
-Open the start menu and go to "environment variables" and click it
-Under the "system variables"
-    find path, click edit
-    add:
-    C:\Program Files\Java\jdk-21.x.x\bin
-click new and add a new variable
-    Name:JAVA_HOME
-    Value: C:\Program Files\Java\jdk-21.x.x
-
-Verify Install
-in powershell
-    java -version
-
-to run a Program
-javac Cal.java // compiles
-java Cal      // runs
-
+## Usage
+- Click the number buttons to input numbers
+- Use the operator buttons (+, -, *, /) to perform calculations
+- Press '=' to see the result
+- Press 'C' to clear the current calculation
