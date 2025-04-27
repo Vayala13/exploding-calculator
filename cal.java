@@ -57,13 +57,14 @@ public class cal extends JFrame implements ActionListener {
         this.add(display, BorderLayout.NORTH);                             // configured to top of window
 
         // 4 x 4 panel for the buttons n also the spacing
-        JPanel panel = new JPanel(new GridLayout(4, 4, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(5, 4, 5, 5));
         // button labels
         String[] buttons = {
             "7", "8", "9", "/",
             "4", "5", "6", "*",
             "1", "2", "3", "-",
-            "0", "C", "=", "+"
+            "0", "C", "=", "+",
+            "log", "sqrt"
         };
 
         // for loop to configure th bottons and andd to the panel
@@ -93,16 +94,39 @@ public class cal extends JFrame implements ActionListener {
             operator = input;                               // Store the operator
             display.setText("");                          // Clear display
         // if equals then calculate the result
-        } else if (input.equals("=")) {
+        } 
+        // if user presses log or sqrt button
+        else if(input.matches("log|sqrt")) 
+        {
+            operator  = input;
+            display.setText("");
+        }
+        else if (input.equals("=")) 
+        {
+            double result = 0;
+            if(operator.equals("log") || operator.equals("sqrt"))
+            {
+                num1 = Double.parseDouble(display.getText());
+                result = switch (operator)
+                {
+                    case "log" -> Math.log10(num1);
+                    case "sqrt" -> Math.sqrt(num1);
+                    default -> 0;
+                };
+            }
+            else
+            {
             num2 = Double.parseDouble(display.getText());   // get the second number from display
             // switch case for each operator
-            double result = switch (operator) {
+            result = switch (operator) 
+            {
                 case "+" -> num1 + num2;
                 case "-" -> num1 - num2;
                 case "*" -> num1 * num2;
                 case "/" -> num2 != 0 ? num1 / num2 : 0; // HERE: allows for the funny magic XD
                 default -> 0;
             };
+            }
             // show the results in the box
             display.setText(String.valueOf(result));
 
