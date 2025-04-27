@@ -1,9 +1,25 @@
-// Importing necessary classes for de GUI
-import javax.swing.*;       // Swing GUI
-import java.awt.*;          // Fonts n stuff
-import java.awt.event.*;    // Event handling (buttons n like stuff)
+/*  About javax.swing package
+        - Main source of GUI
+        - Contains public classes: JTextField, JFrame, JButton, JPanel, etc.
+        - Contains packages awt and awt.event
+    About java.awt
+        - Contains public classes border.BorderLayout, Font, GridLayout, etc. 
+        - Makes things look pretty  
+    About java.awt.event
+        - Contains interfaces ActionEvent and ActionListener
+        - Makes buttons work 
+*/ 
 
-// cal class extending JFrame for creatin the window && ActionListener for the buttons
+// Importing necessary classes to make GUI
+import javax.swing.*; 
+import java.awt.*;  
+import java.awt.event.*;
+
+/* About JFrame Class
+    - Contains public methods: setTitle, setSize, setDefaultCloseOperation, setLayout, add, setVisible
+*/
+
+// cal class inherits JFrame for creating the window && ActionListener for the buttons
 public class cal extends JFrame implements ActionListener {
     // gui displays field where numbers && results are shown
     private JTextField display;
@@ -14,19 +30,19 @@ public class cal extends JFrame implements ActionListener {
     // constructor to set up the GUI
     public cal() {
         // the title of the window
-        setTitle("Calculator");
+        this.setTitle("Calculator");
         // the size of window 
-        setSize(300, 400);
+        this.setSize(300, 400);
         // IMPORTANT: makes sure that the program closes
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // BorderLayout organizes the GUI Components (reason it takes 30 min lol)
-        setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
         // create the text field and configure for displayin input && output
         display = new JTextField();
         display.setEditable(false);                                 // user wont type directly into the text box
         display.setFont(new Font("Arial", Font.BOLD, 24));  // text configurations
-        add(display, BorderLayout.NORTH);                             // configured to top of window
+        this.add(display, BorderLayout.NORTH);                             // configured to top of window
 
         // 4 x 4 panel for the buttons n also the spacing
         JPanel panel = new JPanel(new GridLayout(4, 4, 5, 5));
@@ -47,9 +63,9 @@ public class cal extends JFrame implements ActionListener {
         }
 
         // add the panel to the middle (praise be the BorderLayout)
-        add(panel, BorderLayout.CENTER);
+        this.add(panel, BorderLayout.CENTER);
         // make it a real boy (papa)
-        setVisible(true);
+        this.setVisible(true);
     }
 
     // handle button clicks
