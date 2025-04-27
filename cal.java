@@ -44,7 +44,7 @@ public class cal extends JFrame implements ActionListener {
         // the title of the window
         this.setTitle("Calculator");
         // the size of window 
-        this.setSize(300, 400);
+        this.setSize(400, 500);
         // IMPORTANT: makes sure that the program closes
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // BorderLayout organizes the GUI Components (reason it takes 30 min lol)
@@ -56,15 +56,16 @@ public class cal extends JFrame implements ActionListener {
         display.setFont(new Font("Arial", Font.BOLD, 24));  // text configurations
         this.add(display, BorderLayout.NORTH);                             // configured to top of window
 
-        // 4 x 4 panel for the buttons n also the spacing
-        JPanel panel = new JPanel(new GridLayout(5, 4, 5, 5));
+        // 6 x 4 panel for the buttons n also the spacing
+        JPanel panel = new JPanel(new GridLayout(6, 4, 5, 5));
         // button labels
         String[] buttons = {
             "7", "8", "9", "/",
             "4", "5", "6", "*",
             "1", "2", "3", "-",
             "0", "C", "=", "+",
-            "log", "sqrt"
+            "log", "sqrt", "(", ")",
+            "sin", "cos", "tan", "",
         };
 
         // for loop to configure th bottons and andd to the panel
@@ -88,50 +89,64 @@ public class cal extends JFrame implements ActionListener {
         // if its number append 
         if (input.matches("[0-9]")) {
             display.setText(display.getText() + input); // append digit
+        }
         // if its an operator store number and operator, clear display too
-        } else if (input.matches("[+\\-*/]")) {
+        else if (input.matches("[+\\-*/]")) {
             num1 = Double.parseDouble(display.getText());   // Convert current display to num
             operator = input;                               // Store the operator
             display.setText("");                          // Clear display
-        // if equals then calculate the result
         } 
         // if user presses log or sqrt button
         else if(input.matches("log|sqrt")) 
         {
             operator  = input;
-            display.setText("");
+            //display.setText("");
+            display.setText(operator + "(");
         }
-        else if (input.equals("=")) 
-        {
+        // if user presses sin, cos, tan
+        else if (input.matches("sin|cos|tan")) {
+            operator = input;
+            display.setText(operator + "(");
+        }
+        // if equals then calculate the result
+        else if (input.equals("=")) {
             double result = 0;
-            if(operator.equals("log") || operator.equals("sqrt"))
-            {
-                num1 = Double.parseDouble(display.getText());
+            if(operator.equals("log") || operator.equals("sqrt") ||
+            operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
+                
+                display.setText(display.getText() + ")"); // trying to close parentheses 
+                String text = display.getText();
+                text = text.replaceAll("[a-zA-Z()]", ""); // remove "log", "sin", "cos", etc.
+                num1 = Double.parseDouble(text);
+
+                //num1 = Double.parseDouble(display.getText());
                 result = switch (operator)
                 {
                     case "log" -> Math.log10(num1);
                     case "sqrt" -> Math.sqrt(num1);
+                    case "sin" -> Math.sin(Math.toRadians(num1));
+                    case "cos" -> Math.cos(Math.toRadians(num1)); 
+                    case "tan" -> Math.tan(Math.toRadians(num1)); 
                     default -> 0;
                 };
             }
-            else
-            {
-            num2 = Double.parseDouble(display.getText());   // get the second number from display
-            // switch case for each operator
-            result = switch (operator) 
-            {
-                case "+" -> num1 + num2;
-                case "-" -> num1 - num2;
-                case "*" -> num1 * num2;
-                case "/" -> num2 != 0 ? num1 / num2 : 0; // HERE: allows for the funny magic XD
-                default -> 0;
-            };
+            else {
+                num2 = Double.parseDouble(display.getText());   // get the second number from display
+                // switch case for each operator
+                result = switch (operator) 
+                {
+                    case "+" -> num1 + num2;
+                    case "-" -> num1 - num2;
+                    case "*" -> num1 * num2;
+                    case "/" -> num2 != 0 ? num1 / num2 : 0; // HERE: allows for the funny magic XD
+                    default -> 0;
+                };
             }
             // show the results in the box
             display.setText(String.valueOf(result));
-
+        }
         // if C reset it all
-        } else if (input.equals("C")) {
+        else if (input.equals("C")) {
             display.setText("");    // clear display
             num1 = num2 = 0;          // reset numbers
             operator = "";            // clear operators
