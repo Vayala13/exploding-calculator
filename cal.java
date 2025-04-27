@@ -144,6 +144,7 @@ public class cal extends JFrame implements ActionListener {
             }
             // show the results in the box
             display.setText(String.valueOf(result));
+            // display.setText(String.format("%.2f", result)); // Do this for trig stuff 
         }
         // if C reset it all
         else if (input.equals("C")) {
