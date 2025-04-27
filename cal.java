@@ -1,23 +1,35 @@
-/*  About javax.swing package
+/*  BREAKING DOWN SOME OF THIS CODE
+    
+PACKAGES: 
+    About javax.swing
         - Main source of GUI
-        - Contains public classes: JTextField, JFrame, JButton, JPanel, etc.
+        - Contains public classes: JTextField, JFrame, JButton, JPanel, SwingUtilities, etc.
         - Contains packages awt and awt.event
-    About java.awt
+    About java.awt 
         - Contains public classes border.BorderLayout, Font, GridLayout, etc. 
         - Makes things look pretty  
     About java.awt.event
-        - Contains interfaces ActionEvent and ActionListener
+        - Contains class: ActionEvent and interface: ActionListener
         - Makes buttons work 
+
+CLASSES:
+    About JFrame
+        - Contains public methods: setTitle, setSize, setDefaultCloseOperation,
+            setLayout, add, setVisible
+    About ActionEvent
+        - Contains method: getActionCommand 
+    About Double
+        - Contains static method: parseDouble (converts string to double) 
+
+INTERFACES:
+    About ActionListener
+        - Responds to ActionEvent 
 */ 
 
 // Importing necessary classes to make GUI
 import javax.swing.*; 
 import java.awt.*;  
 import java.awt.event.*;
-
-/* About JFrame Class
-    - Contains public methods: setTitle, setSize, setDefaultCloseOperation, setLayout, add, setVisible
-*/
 
 // cal class inherits JFrame for creating the window && ActionListener for the buttons
 public class cal extends JFrame implements ActionListener {
@@ -67,7 +79,7 @@ public class cal extends JFrame implements ActionListener {
         // make it a real boy (papa)
         this.setVisible(true);
     }
-
+    
     // handle button clicks
     public void actionPerformed(ActionEvent e) {
         String input = e.getActionCommand();    // get the label of the botton that was pressed
@@ -102,11 +114,11 @@ public class cal extends JFrame implements ActionListener {
         }
     }
 
-/* hello am i sam now */
     // main method
     public static void main(String[] args) {
 
-        // runs the calculator GUI things (being honest this one I had to look up kinda changes with the old version of java I was using)
+        // runs the calculator GUI 
+        // invokeLater is there to prevent bugs when a new GUI is launched every time. 
         SwingUtilities.invokeLater(() -> new cal());
     }
 }
