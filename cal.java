@@ -38,6 +38,7 @@ public class cal extends JFrame implements ActionListener {
     // Variables to store the first && second number && the operation selection
     private double num1 = 0, num2 = 0;
     private String operator = "";
+    private boolean isDegree = true; // Starts calc in DEG mode
 
     // constructor to set up the GUI
     public cal() {
@@ -65,7 +66,7 @@ public class cal extends JFrame implements ActionListener {
             "1", "2", "3", "-",
             "0", "C", "=", "+",
             "log", "sqrt", "(", ")",
-            "sin", "cos", "tan", "",
+            "sin", "cos", "tan", "RAD",
         };
 
         // for loop to configure th bottons and andd to the panel
@@ -96,6 +97,9 @@ public class cal extends JFrame implements ActionListener {
             operator = input;                               // Store the operator
             display.setText("");                          // Clear display
         } 
+        else if (input.equals("(") || input.equals(")")) {
+            display.setText(display.getText() + input); // append digit or close parentheses 
+        }
         // if user presses log or sqrt button
         else if(input.matches("log|sqrt")) 
         {
@@ -108,25 +112,33 @@ public class cal extends JFrame implements ActionListener {
             operator = input;
             display.setText(operator + "(");
         }
+        else if (input.matches("RAD|DEG")) {
+            isDegree = !isDegree;
+            // Change RAD/DEG. Cast to JButton since you want to change button label 
+            ((JButton)e.getSource()).setText(isDegree ? "DEG" : "RAD");
+        }
         // if equals then calculate the result
         else if (input.equals("=")) {
+            
             double result = 0;
             if(operator.equals("log") || operator.equals("sqrt") ||
             operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
                 
                 display.setText(display.getText() + ")"); // trying to close parentheses 
-                String text = display.getText();
-                text = text.replaceAll("[a-zA-Z()]", ""); // remove "log", "sin", "cos", etc.
-                num1 = Double.parseDouble(text);
-
+                String text2 = display.getText(); 
+                text2 = text2.replaceAll("[a-zA-Z()]", ""); // remove "log", "sin", "cos", etc.
+                num1 = Double.parseDouble(text2);
                 //num1 = Double.parseDouble(display.getText());
+
+                double angle = isDegree ? Math.toRadians(num1) : num1; // Check if rad or deg
+
                 result = switch (operator)
                 {
                     case "log" -> Math.log10(num1);
                     case "sqrt" -> Math.sqrt(num1);
-                    case "sin" -> Math.sin(Math.toRadians(num1));
-                    case "cos" -> Math.cos(Math.toRadians(num1)); 
-                    case "tan" -> Math.tan(Math.toRadians(num1)); 
+                    case "sin" -> Math.sin(angle);
+                    case "cos" -> Math.cos(angle); 
+                    case "tan" -> Math.tan(angle); 
                     default -> 0;
                 };
             }
