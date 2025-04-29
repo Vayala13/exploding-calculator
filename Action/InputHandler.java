@@ -55,6 +55,12 @@ public class InputHandler {
         else if (input.equals("C")) {
             clearCalculator();
         }
+        else if(input.equals("Del"))
+        {
+            if (display.getText().length() > 0) {
+                display.setText(display.getText().substring(0, display.getText().length() - 1));
+            }
+        }
     }
 
     // Calculate the result based on current operation
