@@ -44,7 +44,8 @@ public class InputHandler {
         }
         // Handle degree/radian mode switch
         else if (input.matches("RAD|DEG")) {
-            isDegree = !isDegree;
+            isDegree = !isDegree; 
+            //setDegreeMode(!isDegree);
         }
         // Handle equals button (calculate result)
         else if (input.equals("=")) {
@@ -116,8 +117,13 @@ public class InputHandler {
         operator = "";
     }
 
-    // Getter for degree mode
-    public boolean isDegreeMode() {
+    // Getter method for degree/radian mode
+    public boolean getDegreeMode() {
         return isDegree;
     }
+
+    // Setter method for degree/radian mode 
+    // public void setDegreeMode(boolean mode) {
+    //     isDegree = mode; 
+    // }
 } 

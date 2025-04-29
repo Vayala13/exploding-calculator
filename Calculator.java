@@ -90,10 +90,10 @@ public class Calculator extends JFrame implements ActionListener {
     // Handle button clicks
     public void actionPerformed(ActionEvent e) {
         inputHandler.processInput(e);
-        
+        //inputHandler.setDegreeMode(!isDegree);
         // Update RAD/DEG button text if needed
         if (e.getActionCommand().matches("RAD|DEG")) {
-            ((JButton)e.getSource()).setText(inputHandler.isDegreeMode() ? "DEG" : "RAD");
+            ((JButton)e.getSource()).setText(inputHandler.getDegreeMode() ? "DEG" : "RAD");
         }
     }
 }
