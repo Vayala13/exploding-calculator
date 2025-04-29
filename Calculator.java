@@ -58,15 +58,16 @@ public class Calculator extends JFrame implements ActionListener {
         this.add(display, BorderLayout.NORTH);                             // configured to top of window
 
         // 6 x 4 panel for the buttons n also the spacing
-        JPanel panel = new JPanel(new GridLayout(6, 4, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(7, 4, 5, 5));
         // button labels
         String[] buttons = {
-            "7", "8", "9", "/",
-            "4", "5", "6", "*",
-            "1", "2", "3", "-",
-            "0", "C", "=", "+",
-            "log", "sqrt", "(", ")",
             "sin", "cos", "tan", "RAD",
+            "log", "sqrt", "^", "%", 
+            "Del", "(", ")", "/",
+            "7", "8", "9", "x",            
+            "4", "5", "6", "-",
+            "1", "2", "3", "+",
+            "C", "0", ".", "=",
         };
 
         // for loop to configure th bottons and andd to the panel
