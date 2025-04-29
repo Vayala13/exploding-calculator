@@ -19,7 +19,7 @@ public class InputHandler {
         String input = e.getActionCommand();
 
         // Handle number input
-        if (input.matches("[0-9]")) {
+        if (input.matches("[0-9 | .]")) {
             display.setText(display.getText() + input);
         }
         // Handle basic arithmetic operators

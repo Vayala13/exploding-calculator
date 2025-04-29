@@ -1,4 +1,3 @@
-import javax.swing.*; 
 
 // Main class that creates an instance of Calculator
 public class Main {
@@ -6,4 +5,3 @@ public class Main {
         new Calculator();
     }
 }
-
