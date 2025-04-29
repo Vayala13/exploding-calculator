@@ -1,13 +1,14 @@
 package Action;
 
+// Class implementing cosine operation
 public class Cosine implements Operation {
     @Override
-    public double performOp(double num1) {
-        return Math.cos(num1);
+    public double performOp(double num) {
+        return Math.cos(num);  // Cosine function
     }
     
     @Override
     public double performOp(double num1, double num2) {
-        return Math.cos(num1);  // Ignore second parameter for cosine
+        return performOp(num1);  // Ignore second operand for cosine
     }
 } 

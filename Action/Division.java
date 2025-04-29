@@ -1,13 +1,17 @@
 package Action;
 
+// Class implementing division operation
 public class Division implements Operation {
     @Override
-    public double performOp(double num1, double num2) {
-        return num2 != 0 ? num1 / num2 : 0;  // Prevent division by zero
+    public double performOp(double num) {
+        return 1.0 / num;  // For single operand, return reciprocal
     }
-
+    
     @Override
-    public double performOp(double num1) {
-        return num1;  // Single operand division just returns the number
+    public double performOp(double num1, double num2) {
+        if (num2 == 0) {
+            throw new ArithmeticException("Division by zero");
+        }
+        return num1 / num2;  // Divide first number by second
     }
 } 
