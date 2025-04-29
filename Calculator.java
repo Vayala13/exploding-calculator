@@ -30,6 +30,7 @@ INTERFACES:
 import javax.swing.*; 
 import java.awt.*;  
 import java.awt.event.*;
+import Action.*;
 
 // cal class inherits JFrame for creating the window && ActionListener for the buttons
 public class Calculator extends JFrame implements ActionListener {
@@ -121,7 +122,9 @@ public class Calculator extends JFrame implements ActionListener {
         // if equals then calculate the result
         else if (input.equals("=")) {
             
-            double result = 0;
+            //double result = 0;
+            double result = new Addition(num1, num2);
+
             if(operator.equals("log") || operator.equals("sqrt") ||
             operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
                 
