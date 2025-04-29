@@ -30,143 +30,150 @@ INTERFACES:
 import javax.swing.*; 
 import java.awt.*;  
 import java.awt.event.*;
-import Action.*;
+import Action.*;  // Import our custom operation classes
 
-// cal class inherits JFrame for creating the window && ActionListener for the buttons
+// Calculator class inherits JFrame for creating the window and implements ActionListener for button clicks
 public class Calculator extends JFrame implements ActionListener {
-    // gui displays field where numbers && results are shown
-    private JTextField display;
-    // Variables to store the first && second number && the operation selection
-    private double num1 = 0, num2 = 0;
-    private String operator = "";
-    private boolean isDegree = true; // Starts calc in DEG mode
+    // GUI components
+    private JTextField display;  // Text field to display numbers and results
+    
+    // Calculator state variables
+    private double num1 = 0, num2 = 0;  // Store the two numbers for operations
+    private String operator = "";        // Store the current operation
+    private boolean isDegree = true;     // Track if calculator is in degrees mode (true) or radians (false)
 
-    // constructor to set up the GUI
+    // Constructor to set up the GUI
     public Calculator() {
-        // the title of the window
-        this.setTitle("Calculator");
-        // the size of window 
-        this.setSize(400, 500);
-        // IMPORTANT: makes sure that the program closes
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        // BorderLayout organizes the GUI Components (reason it takes 30 min lol)
-        this.setLayout(new BorderLayout());
+        // Configure the main window
+        this.setTitle("Calculator");                    // Set window title
+        this.setSize(400, 500);                         // Set window size
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);   // Make program exit when window is closed
+        this.setLayout(new BorderLayout());             // Use BorderLayout for component arrangement
 
-        // create the text field and configure for displayin input && output
+        // Configure the display text field
         display = new JTextField();
-        display.setEditable(false);                                 // user wont type directly into the text box
-        display.setFont(new Font("Arial", Font.BOLD, 24));  // text configurations
-        this.add(display, BorderLayout.NORTH);                             // configured to top of window
+        display.setEditable(false);                     // Prevent direct typing into display
+        display.setFont(new Font("Arial", Font.BOLD, 24));  // Set display font
+        this.add(display, BorderLayout.NORTH);          // Add display to top of window
 
-        // 6 x 4 panel for the buttons n also the spacing
+        // Create button panel with 7 rows and 4 columns
         JPanel panel = new JPanel(new GridLayout(7, 4, 5, 5));
-        // button labels
+        
+        // Define all calculator buttons
         String[] buttons = {
-            "sin", "cos", "tan", "RAD",
-            "log", "sqrt", "^", "%", 
-            "Del", "(", ")", "/",
-            "7", "8", "9", "x",            
-            "4", "5", "6", "-",
-            "1", "2", "3", "+",
-            "C", "0", ".", "=",
+            "sin", "cos", "tan", "RAD",    // Trigonometric functions and mode switch
+            "log", "sqrt", "^", "%",       // Logarithm, square root, power, percentage
+            "Del", "(", ")", "/",          // Delete, parentheses, division
+            "7", "8", "9", "*",            // Numbers and multiplication
+            "4", "5", "6", "-",            // Numbers and subtraction
+            "1", "2", "3", "+",            // Numbers and addition
+            "C", "0", ".", "=",            // Clear, zero, decimal point, equals
         };
 
-        // for loop to configure th bottons and andd to the panel
+        // Create and configure all buttons
         for (String text : buttons) {
-            JButton button = new JButton(text);                         // create a button with the label
-            button.setFont(new Font("Arial", Font.BOLD, 20)); // text config
-            button.addActionListener(this);                             // set this to handle clicks
-            panel.add(button);                                          // addin the button to panel line 32 (IF no changes have been made)
+            JButton button = new JButton(text);         // Create button with label
+            button.setFont(new Font("Arial", Font.BOLD, 20));  // Set button font
+            button.addActionListener(this);             // Make this class handle button clicks
+            panel.add(button);                          // Add button to panel
         } 
 
-        // add the panel to the middle (praise be the BorderLayout)
+        // Add the button panel to the center of the window
         this.add(panel, BorderLayout.CENTER);
-        // make it a real boy (papa)
-        this.setVisible(true);
-    } // end of constructor 
+        this.setVisible(true);  // Make the window visible
+    }
     
-    // Method called anytime a registered JButton (calculator button) variable is pressed 
+    // Handle button clicks
     public void actionPerformed(ActionEvent e) {
-        String input = e.getActionCommand();    // get the label of the botton that was pressed
+        String input = e.getActionCommand();  // Get which button was pressed
 
-        // if its number append 
+        // Handle number input
         if (input.matches("[0-9]")) {
-            display.setText(display.getText() + input); // append digit
+            display.setText(display.getText() + input);  // Append digit to display
         }
-        // if its an operator store number and operator, clear display too
+        // Handle basic arithmetic operators
         else if (input.matches("[+\\-*/]")) {
-            num1 = Double.parseDouble(display.getText());   // Convert current display to num
-            operator = input;                               // Store the operator
-            display.setText("");                          // Clear display
+            num1 = Double.parseDouble(display.getText());  // Store first number
+            operator = input;                               // Store operator
+            display.setText("");                           // Clear display for second number
         } 
+        // Handle parentheses
         else if (input.equals("(") || input.equals(")")) {
-            display.setText(display.getText() + input); // append digit or close parentheses 
+            display.setText(display.getText() + input);  // Append parentheses to display
         }
-        // if user presses log or sqrt button
-        else if(input.matches("log|sqrt")) 
-        {
-            operator  = input;
-            //display.setText("");
-            display.setText(operator + "(");
+        // Handle logarithmic and square root functions
+        else if(input.matches("log|sqrt")) {
+            operator = input;
+            display.setText(operator + "(");  // Format as function call
         }
-        // if user presses sin, cos, tan
+        // Handle trigonometric functions
         else if (input.matches("sin|cos|tan")) {
             operator = input;
-            display.setText(operator + "(");
+            display.setText(operator + "(");  // Format as function call
         }
+        // Handle degree/radian mode switch
         else if (input.matches("RAD|DEG")) {
-            isDegree = !isDegree;
-            // Change RAD/DEG. Cast to JButton since you want to change button label 
+            isDegree = !isDegree;  // Toggle mode
+            // Update button label to show current mode
             ((JButton)e.getSource()).setText(isDegree ? "DEG" : "RAD");
         }
-        // if equals then calculate the result
+        // Handle equals button (calculate result)
         else if (input.equals("=")) {
-            
-            //double result = 0;
-            double result = new Addition(num1, num2);
+            double result = 0;
 
+            // Handle single-operand operations (log, sqrt, trig functions)
             if(operator.equals("log") || operator.equals("sqrt") ||
-            operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
+               operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
                 
-                display.setText(display.getText() + ")"); // trying to close parentheses 
+                display.setText(display.getText() + ")");  // Close function parentheses
                 String text2 = display.getText(); 
-                text2 = text2.replaceAll("[a-zA-Z()]", ""); // remove "log", "sin", "cos", etc.
+                text2 = text2.replaceAll("[a-zA-Z()]", "");  // Extract number from function call
                 num1 = Double.parseDouble(text2);
-                //num1 = Double.parseDouble(display.getText());
 
-                double angle = isDegree ? Math.toRadians(num1) : num1; // Check if rad or deg
+                // Convert to radians if in degree mode
+                double angle = isDegree ? Math.toRadians(num1) : num1;
 
-                result = switch (operator)
-                {
-                    case "log" -> Math.log10(num1);
-                    case "sqrt" -> Math.sqrt(num1);
-                    case "sin" -> Math.sin(angle);
-                    case "cos" -> Math.cos(angle); 
-                    case "tan" -> Math.tan(angle); 
-                    default -> 0;
+                // Create appropriate operation object based on operator
+                Operation op = switch (operator) {
+                    case "log" -> new Logarithm();
+                    case "sqrt" -> new SquareRoot();
+                    case "sin" -> new Sine();
+                    case "cos" -> new Cosine();
+                    case "tan" -> new Tangent();
+                    default -> null;
                 };
+                
+                // Perform the operation
+                if (op != null) {
+                    result = operator.matches("sin|cos|tan") ? op.performOp(angle) : op.performOp(num1);
+                }
             }
+            // Handle two-operand operations (basic arithmetic)
             else {
-                num2 = Double.parseDouble(display.getText());   // get the second number from display
-                // switch case for each operator
-                result = switch (operator) 
-                {
-                    case "+" -> num1 + num2;
-                    case "-" -> num1 - num2;
-                    case "*" -> num1 * num2;
-                    case "/" -> num2 != 0 ? num1 / num2 : 0; // HERE: allows for the funny magic XD
-                    default -> 0;
+                num2 = Double.parseDouble(display.getText());  // Get second number
+                
+                // Create appropriate operation object based on operator
+                Operation op = switch (operator) {
+                    case "+" -> new Addition();
+                    case "-" -> new Subtraction();
+                    case "*" -> new Multiplication();
+                    case "/" -> new Division();
+                    default -> null;
                 };
+                
+                // Perform the operation
+                if (op != null) {
+                    result = op.performOp(num1, num2);
+                }
             }
-            // show the results in the box
+            // Display the result
             display.setText(String.valueOf(result));
-            // display.setText(String.format("%.2f", result)); // Do this for trig stuff 
         }
-        // if C reset it all
+        // Handle clear button
         else if (input.equals("C")) {
-            display.setText("");    // clear display
-            num1 = num2 = 0;          // reset numbers
-            operator = "";            // clear operators
+            display.setText("");     // Clear display
+            num1 = num2 = 0;         // Reset numbers
+            operator = "";           // Clear operator
         }
     }
 }
