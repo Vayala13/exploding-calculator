@@ -37,11 +37,6 @@ public class Calculator extends JFrame implements ActionListener {
     // GUI components
     private JTextField display;  // Text field to display numbers and results
     private InputHandler inputHandler;  // Handles input processing
-    
-    // Calculator state variables
-    private double num1 = 0, num2 = 0;  // Store the two numbers for operations
-    private String operator = "";        // Store the current operation
-    private boolean isDegree = true;     // Track if calculator is in degrees mode (true) or radians (false)
 
     // Constructor to set up the GUI
     public Calculator() {
