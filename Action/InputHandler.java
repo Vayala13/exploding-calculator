@@ -71,10 +71,14 @@ public class InputHandler {
         if(operator.equals("log") || operator.equals("sqrt") ||
            operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
             
+            // Close parentheses of unary operation
             display.setText(display.getText() + ")");
-            String text2 = display.getText(); 
-            text2 = text2.replaceAll("[a-zA-Z()]", "");
-            num1 = Double.parseDouble(text2);
+            // Get the string from the display 
+            String originalString = display.getText(); 
+            // Get only the number, no letters
+            String newString = originalString.replaceAll("[a-zA-Z()]", "");
+            // Store that number in num1
+            num1 = Double.parseDouble(newString);
 
             // Convert to radians if in degree mode
             double angle = isDegree ? Math.toRadians(num1) : num1;
