@@ -85,12 +85,12 @@ public class Calculator extends JFrame implements ActionListener {
         // Add the button panel to the center of the window
         this.add(panel, BorderLayout.CENTER);
         this.setVisible(true);  // Make the window visible
+        inputHandler.setDegreeMode(true); // Set calc default mode to degree 
     }
     
     // Handle button clicks
     public void actionPerformed(ActionEvent e) {
         inputHandler.processInput(e);
-        //inputHandler.setDegreeMode(!isDegree);
         // Update RAD/DEG button text if needed
         if (e.getActionCommand().matches("RAD|DEG")) {
             ((JButton)e.getSource()).setText(inputHandler.getDegreeMode() ? "DEG" : "RAD");

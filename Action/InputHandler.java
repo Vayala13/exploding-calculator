@@ -8,7 +8,7 @@ public class InputHandler {
     private JTextField display;
     private double num1 = 0, num2 = 0;
     private String operator = "";
-    private boolean isDegree = true;
+    private boolean isDegree;
 
     public InputHandler(JTextField display) {
         this.display = display;
@@ -129,7 +129,7 @@ public class InputHandler {
     }
 
     // Setter method for degree/radian mode 
-    // public void setDegreeMode(boolean mode) {
-    //     isDegree = mode; 
-    // }
+    public void setDegreeMode(boolean mode) {
+        isDegree = mode; 
+    }
 } 
