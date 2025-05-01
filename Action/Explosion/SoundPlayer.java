@@ -1,7 +1,6 @@
 package Action.Explosion;
 
 import javax.sound.sampled.*;
-//import java.io.File;
 import java.io.IOException;
 import java.net.URL; 
 
@@ -14,9 +13,7 @@ public class SoundPlayer {
             // Making sure the file path isn't hardcoded 
             URL soundURL = getClass().getResource("/Action/Explosion/sound.wav");
 
-            if (soundURL == null) System.out.println("Not found");
             // Load the audio file
-            //File soundFile = new File("/Action/Explosion/sound.wav"); // Replace with your actual file path
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL);
 
             // Get a sound clip resource
