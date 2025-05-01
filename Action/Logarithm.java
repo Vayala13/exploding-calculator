@@ -7,7 +7,7 @@ public class Logarithm implements Operation {
         if (num <= 0) {
             throw new ArithmeticException("Logarithm of non-positive number");
         }
-        return Math.log(num);  // Natural logarithm
+        return Math.log10(num);
     }
     
     @Override
