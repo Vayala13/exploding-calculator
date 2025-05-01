@@ -30,6 +30,16 @@ public class Pictures {
             JLabel label = new JLabel(icon);
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalAlignment(JLabel.CENTER);
+
+            // Play Sound
+            // SoundPlayer explosion = new SoundPlayer();
+            // explosion.playSound();
+
+            // Play Sound in a new thread
+            new Thread(() -> {
+                SoundPlayer explosion = new SoundPlayer();
+                explosion.playSound();
+            }).start();
             
             // Display the image on the new window 
             frame.add(label);

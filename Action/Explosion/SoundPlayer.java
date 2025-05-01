@@ -1,17 +1,23 @@
 package Action.Explosion;
 
 import javax.sound.sampled.*;
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URL; 
 
 public class SoundPlayer {
-    public static void main(String[] args) {
+
+    public SoundPlayer() {} 
+
+    public void playSound() {
         try {
+            // Making sure the file path isn't hardcoded 
+            URL soundURL = getClass().getResource("/Action/Explosion/sound.wav");
+
+            if (soundURL == null) System.out.println("Not found");
             // Load the audio file
-            File soundFile = new File("/Action/Explosion/sound.wav"); // Replace with your actual file path
-            //URL soundURL = SoundPlayer.class.getResource("/Action/Explosion/sound.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            //File soundFile = new File("/Action/Explosion/sound.wav"); // Replace with your actual file path
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL);
 
             // Get a sound clip resource
             Clip clip = AudioSystem.getClip();
@@ -23,8 +29,7 @@ public class SoundPlayer {
             clip.start();
 
             // Optional: wait for the sound to finish playing
-            Thread.sleep(clip.getMicrosecondLength() / 1000);
-        }
+            Thread.sleep(clip.getMicrosecondLength() / 1000); }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
         }
