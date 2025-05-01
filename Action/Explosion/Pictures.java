@@ -9,32 +9,29 @@ public class Pictures {
     // public static void main(String[] args) {
     //     // Change to correct paths
         private static String[] imagePaths = {
-            "image1",
-            "image2",
-            "image3" };
+            "image1.jpg",
+            "image2.jpg",
+            "image3.jpg" };
 
-        public Pictures() {
-            //showPicture(); 
-            JFrame newWindow = new JFrame("New Window Title");
-            newWindow.setSize(400, 300);
-            newWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            newWindow.setVisible(true);
-        }
+        public Pictures() {}
 
         public void showPicture() {
-                        // Picks a pic at random
-            Random random = new Random();
-            String selectedImage = imagePaths[random.nextInt(imagePaths.length)];
-
             // Create the frame
             JFrame frame = new JFrame("Random Image Viewer");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(500, 500); // adjust as needed
 
-            // Load and display the image
-            JLabel label = new JLabel(new ImageIcon(selectedImage));
+            // Picks a pic at random
+            Random random = new Random();
+            String selectedImage = imagePaths[random.nextInt(imagePaths.length)];
+            ImageIcon icon = new ImageIcon(getClass().getResource("/Action/Explosion/" + selectedImage));
+
+            // Load the image into the window 
+            JLabel label = new JLabel(icon);
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalAlignment(JLabel.CENTER);
+            
+            // Display the image on the new window 
             frame.add(label);
             frame.setVisible(true);
 
@@ -47,5 +44,4 @@ public class Pictures {
                 }
             }, 3000);
         }
-    //}
 }

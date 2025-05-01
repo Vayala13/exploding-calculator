@@ -15,6 +15,7 @@ public class Division implements Operation {
             //System.out.print("Hello");
             //throw new ArithmeticException("Division by zero");
             Pictures pic = new Pictures(); 
+            pic.showPicture();
         }
         return num1 / num2;  // Divide first number by second
     }
